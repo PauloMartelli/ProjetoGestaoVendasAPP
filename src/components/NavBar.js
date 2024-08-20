@@ -1,6 +1,7 @@
 import React from 'react';
-import { Nav, Navbar as BootstrapNavbar, Container } from 'react-bootstrap';
+import { Navbar as BootstrapNavbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { FaCashRegister, FaSearch } from 'react-icons/fa';
 
 const Navbar = () => {
     return (
@@ -11,9 +12,11 @@ const Navbar = () => {
                 <BootstrapNavbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/venda">
+                            <FaCashRegister className="me-2" />
                             Registro de Vendas
                         </Nav.Link>
                         <Nav.Link as={Link} to="/consulta">
+                            <FaSearch className="me-2" />
                             Consulta de Vendas
                         </Nav.Link>
                     </Nav>

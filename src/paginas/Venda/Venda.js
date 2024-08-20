@@ -3,6 +3,8 @@ import { Button, Table, Container, Row, Col, Alert } from 'react-bootstrap';
 import { vendas } from '../../services/vendas';
 import ModalVenda from '../../components/ModalVenda';
 import ModalDelete from '../../components/ModalDelete';
+import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
+import styles from './Venda.module.css'; 
 
 const Venda = () => {
     const [vendasList, setVendas] = useState([]);
@@ -54,45 +56,48 @@ const Venda = () => {
         <Container className="mt-4">
             <Row className="justify-content-md-center">
                 <Col md={12}>
-                    <Button variant="primary" onClick={handleAddVenda} className="mb-3">
+                    <Button variant="primary" onClick={handleAddVenda} className={styles.buttonAdd}>
+                        <FaPlus className="me-2" />
                         Nova Venda
                     </Button>
                     {successMessage && <Alert variant="success" className="mb-3">{successMessage}</Alert>}
                     {errorMessage && <Alert variant="danger" className="mb-3">{errorMessage}</Alert>}
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Valor</th>
-                                <th>Tipo de Pagamento</th>
-                                <th>Data e Hora</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {vendasList.map((venda) => (
-                                <tr key={venda.vendaID}>
-                                    <td>{venda.vendaID}</td>
-                                    <td>{venda.valor.toFixed(2)}</td>
-                                    <td>
-                                        {venda.tipoPagamentoId === 1 && 'Dinheiro'}
-                                        {venda.tipoPagamentoId === 2 && 'Pix'}
-                                        {venda.tipoPagamentoId === 3 && 'Cartão Débito'}
-                                        {venda.tipoPagamentoId === 4 && 'Cartão Crédito'}
-                                    </td>
-                                    <td>{formatDate(venda.dataEHora)}</td>
-                                    <td>
-                                        <Button variant="warning" onClick={() => handleEditVenda(venda)} className="m-1">
-                                            Editar
-                                        </Button>
-                                        <Button variant="danger" onClick={() => handleDeleteVenda(venda)} className="m-1">
-                                            Deletar
-                                        </Button>
-                                    </td>
+                    <div className={styles.tableContainer}>
+                        <Table striped bordered hover className={styles.table}>
+                            <thead>
+                                <tr>
+                                    <th>Valor</th>
+                                    <th>Tipo de Pagamento</th>
+                                    <th>Data e Hora</th>
+                                    <th>Ações</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </Table>
+                            </thead>
+                            <tbody>
+                                {vendasList.map((venda) => (
+                                    <tr key={venda.vendaID}>
+                                        <td>{venda.valor.toFixed(2)}</td>
+                                        <td>
+                                            {venda.tipoPagamentoId === 1 && 'Dinheiro'}
+                                            {venda.tipoPagamentoId === 2 && 'Pix'}
+                                            {venda.tipoPagamentoId === 3 && 'Cartão Débito'}
+                                            {venda.tipoPagamentoId === 4 && 'Cartão Crédito'}
+                                        </td>
+                                        <td>{formatDate(venda.dataEHora)}</td>
+                                        <td>
+                                            <Button variant="warning" onClick={() => handleEditVenda(venda)} className="m-1">
+                                                <FaEdit className="me-1" />
+                                                Editar
+                                            </Button>
+                                            <Button variant="danger" onClick={() => handleDeleteVenda(venda)} className="m-1">
+                                                <FaTrash className="me-1" />
+                                                Deletar
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </div>
                 </Col>
             </Row>
 
